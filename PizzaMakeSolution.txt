@@ -1,0 +1,74 @@
+https://powcoder.com
+代写代考加微信 powcoder
+Assignment Project Exam Help
+Add WeChat powcoder
+https://powcoder.com
+代写代考加微信 powcoder
+Assignment Project Exam Help
+Add WeChat powcoder
+# Annotated output from Pizza Makefile worksheet in Week 5
+# Any line starter with # is comments on the output
+
+# Makefile
+reid@wolf:~/csc209/w5$ cat makefile
+dinner: pizza salad
+
+pizza: cheese topping.peppers
+	echo making pizza
+	cat cheese topping.peppers > pizza
+
+cheese:
+	echo gooey cheese > cheese
+
+topping.%:
+	echo yummy $@ > $@
+
+salad:
+	echo salad is healthy
+
+# Starting contents for current working directory
+reid@wolf:~/csc209/w5$ ls
+cheese	makefile  
+
+# The salad target is not a file so the actions are executed
+# Note that make prints the action before it executes it.
+reid@wolf:~/csc209/w5$ make salad
+echo salad is healthy
+salad is healthy
+
+reid@wolf:~/csc209/w5$ make pizza
+# Step 1: Evaluate prerequisites
+#      - First prerequisite is cheese, so look for a rule where the target
+#      matches cheese. 
+#           - The cheese rule has no prereqs and the file cheese exists so
+#           no actions are executed.
+#      - Second prerequiste is topping.peppers which matches the pattern rule
+#      with target topping.%
+#           - The target is now topping.peppers. This rule has no prerequisites
+#           and the file topping.peppers does not exist so the action is
+#           executed
+echo yummy topping.peppers > topping.peppers
+echo making pizza
+# Step 2: Now that we have evaluated and updated all the prequisites for pizza,
+# have any prerequisites been modified more recently than the file pizza?
+#     - The file pizza does not exist, so all prerequisites are newer than the
+#     target, so we execute the actions for the rule pizza
+making pizza
+cat cheese topping.peppers > pizza
+
+# Here is the contents of all of the relevant files:
+reid@wolf:~/csc209/w5$ cat topping.peppers 
+yummy topping.peppers
+reid@wolf:~/csc209/w5$ cat cheese
+Cheese... my archenemy.
+So good, yet so bad.
+How can I escape thee?
+reid@wolf:~/csc209/w5$ cat pizza
+Cheese... my archenemy.
+So good, yet so bad.
+How can I escape thee?
+yummy topping.peppers
+reid@wolf:~/csc209/w5$ make dinner
+echo salad is healthy
+salad is healthy
+reid@wolf:~/csc209/w5$ 

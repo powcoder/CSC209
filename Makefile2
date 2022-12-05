@@ -1,0 +1,23 @@
+FLAGS = -Wall -g -std=gnu99 
+
+all: classifier  test_load_data  bogus
+
+% : %.c dectree.c
+	gcc -o $@ $^ -lm
+
+#classifier : dectree.o classifier.o 
+#	gcc ${FLAGS} -o $@ $^ -lm
+
+#test_load_data : dectree.o test_load_data.o
+#	gcc ${FLAGS} -o $@ $^ -lm
+
+#%.o : %.c dectree.h
+	#gcc ${FLAGS} -c $<
+
+datasets : datasets.tgz
+	tar xzf datasets.tgz
+
+.PHONY: clean all
+
+clean:	
+	rm classifier test_load_data *.o
